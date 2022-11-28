@@ -45,10 +45,11 @@ class Knapsack:
     
         
 sack = Knapsack(10000)
-sack.addItem("testCode\knapsackText.txt")
+sack.addItem("CIS-263/testCode\knapsackText.txt")
 sack.findMaxvalue()
 sack2 = Knapsack(11)
-sack2.addItem("testCode\knapsackText1.txt")
+sack2.addItem("CIS-263/testCode\knapsackText1.txt")
 sack2.findMaxvalue()
+
 
 
