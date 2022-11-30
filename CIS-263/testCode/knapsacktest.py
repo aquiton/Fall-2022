@@ -1,10 +1,3 @@
-#-------------------------------------------------------------
-
-# Python3 code for Dynamic Programming
-# based solution for 0-1 Knapsack problem
- 
-# Prints the items which are put in a
-# knapsack of capacity W
 def printknapSack(W, wt, val, n):
     K = [[0 for w in range(W + 1)]
             for i in range(n + 1)]

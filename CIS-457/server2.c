@@ -54,9 +54,11 @@ int main (int argc, char **argv)
     //close listening socket
     close (listenfd);
 
+    #connfd connection to client
+
     while ( (n = recv(connfd, buf, MAXLINE,0)) > 0)  {
       printf("%s","String received from and resent to the client:");
-      puts(buf);
+      puts(buf);#take buff and pipe 
       send(connfd, buf, n, 0);
     }
 
