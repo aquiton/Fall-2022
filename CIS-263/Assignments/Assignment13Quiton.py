@@ -77,21 +77,7 @@ class Graph:
             print("Zero colors")
             return
         colorindex = 0
-        for node in self.nodes: #---fix color limit
-            if(colorindex == colorlimit):
-                print("Color Limit: " + str(colorlimit))
-                print("Colors used: " + str(colorindex) + " -> " + str(self.colors))
-                colorNodes = []
-                for node in self.nodes:
-                    if(node.color != None):
-                        colorNodes.append(node)
-                print("Amount of nodes in graph: " + str(len(self.nodes)))
-                print("Amount of nodes colored: " + str(len(colorNodes)))
-                print("Nodes colored: ")
-                for colored in colorNodes:
-                    print(str(colored.value) + " -> " + str(colored.color))
-                return
-            
+        for node in self.nodes: #---fix color limit            
             if len(self.colors) == 0:
                 colorindex += 1
                 node.color = colorindex
@@ -114,8 +100,32 @@ class Graph:
                         newColor = True
                 if(newColor):
                     colorindex += 1
+                    if(colorindex > colorlimit):
+                        print("Color Limit: " + str(colorlimit))
+                        print("Colors used: " + str(colorindex) + " -> " + str(self.colors))
+                        colorNodes = []
+                        for node in self.nodes:
+                            if(node.color != None):
+                                colorNodes.append(node)
+                        print("Amount of nodes in graph: " + str(len(self.nodes)))
+                        print("Amount of nodes colored: " + str(len(colorNodes)))
+                        print("Nodes colored: ")
+                        for colored in colorNodes:
+                            print(str(colored.value) + " -> " + str(colored.color))
+                        return
                     self.colors.append(colorindex)
                     node.color = colorindex
+        print("Color Limit: " + str(colorlimit))
+        print("Colors used: " + str(self.colors) + " -> " + str(self.colors))
+        colorNodes = []
+        for node in self.nodes:
+            if(node.color != None):
+                colorNodes.append(node)
+        print("Amount of nodes in graph: " + str(len(self.nodes)))
+        print("Amount of nodes colored: " + str(len(colorNodes)))
+        print("Nodes colored: ")
+        for colored in colorNodes:
+            print(str(colored.value) + " -> " + str(colored.color))
 
 newGraph = Graph()
 nodes = []
