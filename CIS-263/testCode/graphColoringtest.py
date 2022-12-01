@@ -1,6 +1,8 @@
-k = [1,2,3,4,5]
-n = []
-print(len(k))
-print(len(n))
-if len(n) <= 0:
-    print("empty")
+testing = {
+    "a": ["b","c"],
+    "b": ["a","c"]
+}
+print(testing["a"][0])
+print(testing["a"][1])
+print(testing["b"])
+print(list(testing.keys()))

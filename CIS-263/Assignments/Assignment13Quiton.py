@@ -7,7 +7,6 @@ class Node:
         #adj nodes
         self.neighbors = []
         
-
 class Graph:
     def __init__(self):
         #list of all the nodes in the graph
@@ -15,58 +14,125 @@ class Graph:
         #lsit of colors being used
         self.colors = []
         
-    
     #add node method
     def insertNode(self,newNode): #add conectors here
         #add node to graph
-        
         self.nodes.append(newNode)
         
-        
-    
     def addConnections(self,node,connectors):
+        tempNode = None
+        for gnodes in self.nodes:
+            if(node == gnodes.value):
+                tempNode = gnodes
         if len(connectors) == 0:
             return
         else:
             for value in connectors:
                 for gnode in self.nodes:
                     if(value == gnode.value):
-                        node.neighbors.append(gnode)
+                        tempNode.neighbors.append(gnode)
                         break
         
-
-    
     #printgraph
     def displayGraph(self):
         for node in self.nodes:
-            print(node.value,end=" ")
+            print("Node: " + str(node.value),end=" ")
+            print("Color: " + str(node.color),end=" ")
             neighbors = []
             for neighbor in node.neighbors:
                 neighbors.append(neighbor.value)
-            print("connections: " + str(neighbors))
+            print("Connections: " + str(neighbors))
 
     #graphcolor method
-    def colorGraph(self,starting_node):
-        #pick any random vertex to start with
-        #if list of colors is zero add new color
-        #else{
-        # check all colors to make sure they aren't the neighboring nodes color
-        # }
-        return
-
+    def colorGraph(self):
+        colorindex = 0
+        for node in self.nodes:
+            if len(self.colors) == 0:
+                colorindex += 1
+                node.color = colorindex
+                self.colors.append(1)
+            else:
+                newColor = False
+                sameColor = False
+                for color in self.colors:
+                    for neighbor in node.neighbors:
+                        if(neighbor.color == color):
+                            sameColor = False
+                            break
+                        else:
+                            sameColor = True
+                    if(sameColor):
+                        node.color = color
+                        newColor = False
+                        break
+                    else:
+                        newColor = True
+                if(newColor):
+                    colorindex += 1
+                    self.colors.append(colorindex)
+                    node.color = colorindex
+    
+    def colorGraphlimit(self,colorlimit):
+        if(colorlimit == 0):
+            print("Zero colors")
+            return
+        colorindex = 0
+        for node in self.nodes: #---fix color limit
+            if(colorindex == colorlimit):
+                print("Color Limit: " + str(colorlimit))
+                print("Colors used: " + str(colorindex) + " -> " + str(self.colors))
+                colorNodes = []
+                for node in self.nodes:
+                    if(node.color != None):
+                        colorNodes.append(node)
+                print("Amount of nodes in graph: " + str(len(self.nodes)))
+                print("Amount of nodes colored: " + str(len(colorNodes)))
+                print("Nodes colored: ")
+                for colored in colorNodes:
+                    print(str(colored.value) + " -> " + str(colored.color))
+                return
+            
+            if len(self.colors) == 0:
+                colorindex += 1
+                node.color = colorindex
+                self.colors.append(1)
+            else:
+                newColor = False
+                sameColor = False
+                for color in self.colors:
+                    for neighbor in node.neighbors:
+                        if(neighbor.color == color):
+                            sameColor = False
+                            break
+                        else:
+                            sameColor = True
+                    if(sameColor):
+                        node.color = color
+                        newColor = False
+                        break
+                    else:
+                        newColor = True
+                if(newColor):
+                    colorindex += 1
+                    self.colors.append(colorindex)
+                    node.color = colorindex
 
 newGraph = Graph()
 nodes = []
-connections = [["B","C"],["A","C"],["A","B"]]
+connections = {
+    "a": ["b","d","e"],
+    "b": ["a","c","d","e"],
+    "c": ["b","d"],
+    "d": ["a","b","e","f"],
+    "e": ["a","b","c","d","f"],
+    "f": ["d","e"]
+}
 start = ord('a')
-for letter in range(97,104):
+for letter in range(97,103): # a - f inclusive
     newNode = Node(chr(letter))
     newGraph.insertNode(newNode)
-
-
-
-
-# newGraph.addConnections(node1, ["B","C"])
-# newGraph.addConnections(node2, ["A","C"])
-# newGraph.addConnections(node3, ["A","B"])
+for node in list(connections.keys()):
+    newGraph.addConnections(node,connections[node])
+newGraph.colorGraphlimit(3)
 newGraph.displayGraph()
+print("")
