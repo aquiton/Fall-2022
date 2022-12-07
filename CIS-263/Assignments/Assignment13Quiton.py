@@ -102,7 +102,7 @@ class Graph:
                     colorindex += 1
                     if(colorindex > colorlimit):
                         print("Color Limit: " + str(colorlimit))
-                        print("Colors used: " + str(colorindex) + " -> " + str(self.colors))
+                        print("Colors used:" + str(self.colors))
                         colorNodes = []
                         for node in self.nodes:
                             if(node.color != None):
@@ -112,11 +112,12 @@ class Graph:
                         print("Nodes colored: ")
                         for colored in colorNodes:
                             print(str(colored.value) + " -> " + str(colored.color))
-                        return
+                        print("Can't be colored with " + str(colorlimit) + " colors")
+                        return False
                     self.colors.append(colorindex)
                     node.color = colorindex
         print("Color Limit: " + str(colorlimit))
-        print("Colors used: " + str(self.colors) + " -> " + str(self.colors))
+        print("Colors used: " + str(self.colors))
         colorNodes = []
         for node in self.nodes:
             if(node.color != None):
@@ -126,23 +127,7 @@ class Graph:
         print("Nodes colored: ")
         for colored in colorNodes:
             print(str(colored.value) + " -> " + str(colored.color))
+        print("Can be colored with " + str(colorlimit) + " colors")
+        return True
 
-newGraph = Graph()
-nodes = []
-connections = {
-    "a": ["b","d","e"],
-    "b": ["a","c","d","e"],
-    "c": ["b","d"],
-    "d": ["a","b","e","f"],
-    "e": ["a","b","c","d","f"],
-    "f": ["d","e"]
-}
-start = ord('a')
-for letter in range(97,103): # a - f inclusive
-    newNode = Node(chr(letter))
-    newGraph.insertNode(newNode)
-for node in list(connections.keys()):
-    newGraph.addConnections(node,connections[node])
-newGraph.colorGraphlimit(3)
-newGraph.displayGraph()
-print("")
+
